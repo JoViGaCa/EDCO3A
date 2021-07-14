@@ -14,7 +14,7 @@
 typedef struct NoLista *PtrNoLista;
 typedef struct NoLista{
   int id;
-  char nome[21];
+  char nome[25];
   char sexo;
   float peso;
   int altura;
@@ -132,6 +132,7 @@ void destruirListaOrd(ListaOrd *l){
     }
   } else{
     printf("Erro destruir lista vazia\n");
+    exit(1);
   }
 }
 
@@ -163,16 +164,20 @@ int main(int argc, const char * argv[]){
   int altura;
   //opção que quer
   int opcao;
-  while (fscanf(arqe,"{%d,%s ,%c,%f,%d}\n", &id, nome, &sexo, &peso, &altura) == 5){
+  while (fscanf(arqe,"{%d,%[^,],%c,%f,%d}\n", &id, nome, &sexo, &peso, &altura) == 5){
     inserirListaOrd(&lista, id, nome, sexo, peso, altura); //insere na lista
-
   }
 
+  //se passar pelo while e não tiver nenhum elemento então erro no arquivo
+  if(estaVazia(&lista)){
+    printf("Erro: arquivo vazio\n");
+    exit(1);
+  }
 
-  //reajusta o ponteiro do arquivo para ler a opção, caso der erro ele mostra
-  fseek(arqe,-2,SEEK_CUR);
+    //lê a opção, caso der erro ele mostra
   if(fscanf(arqe,"%d\n", &opcao)!= 1){
     printf("Erro, não há opção\n");
+    exit(1);
   }
 
 
