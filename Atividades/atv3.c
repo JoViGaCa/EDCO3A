@@ -140,8 +140,8 @@ int main(int argc, const char *argv[]){
     exit(1);
   }
 
-  FILE* arq_e = fopen("entrada1.txt","r"); // arquivo de entrada
-  FILE* arq_s = fopen("saida1.txt","w"); // arquivo de saida
+  FILE* arq_e = fopen(argv[1],"r"); // arquivo de entrada
+  FILE* arq_s = fopen(argv[2],"w"); // arquivo de saida
   if(!arq_e || !arq_s){
     printf("Erro ao abrir os arquivos\n");
     exit(1);
